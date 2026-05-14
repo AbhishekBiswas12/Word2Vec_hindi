@@ -270,12 +270,6 @@ Planned improvements include:
 
 - Subsampling extremely frequent words
 - Improved negative sampling strategies
-- Hard negative mining
-- Phrase embeddings
-- Character/subword embeddings
-- Quantitative analogy benchmarks
-- Exporting pretrained Hindi embeddings
-- Downstream NLP evaluation tasks
 
 ---
 
