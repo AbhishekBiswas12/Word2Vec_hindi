@@ -61,7 +61,7 @@ The preprocessing pipeline includes:
 
 #### 1. Vocabulary Pruning
 
-Instead of using all unique words, I now keep only words that appear more than 5 times in the dataset This helps:
+Instead of using all unique words, I now keep only words that appear atleast 2 times in the dataset This helps:
 - Reduce vocabulary size
 - Improve training efficiency
 - Remove noisy/rare words
