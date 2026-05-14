@@ -1,0 +1,5 @@
+{
+  "model_type": "word2vec",
+  "embedding_dim": 300,
+  "vocab_size": 508205
+}
