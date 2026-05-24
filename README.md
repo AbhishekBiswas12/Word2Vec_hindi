@@ -268,7 +268,7 @@ to visualize learned word clusters in 2D space.
 
 Planned improvements include:
 
-- Subsampling extremely frequent words
+- Subsampling extremely frequent words (In progress)
 - Improved negative sampling strategies
 
 ---
