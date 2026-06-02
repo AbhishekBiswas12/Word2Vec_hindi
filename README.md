@@ -54,7 +54,8 @@ The model is now producing meaningful semantic separation between positive and n
   - **40M testing pairs**
 - Implemented:
   - Skip-gram training
-  - Negative sampling
+  - Dynamic negative sampling
+  - Frequent-word subsampling
   - BCEWithLogitsLoss training objective
   - Adagrad optimizer
 - Added support for:
@@ -98,8 +99,9 @@ The preprocessing pipeline currently includes:
 - Tokenizing text into words
 - Building vocabulary mappings
 - Removing extremely rare words
+- Subsampling extremely frequent words
 - Generating skip-gram training pairs
-- Generating negative samples
+- Building a negative sampling distribution
 
 ---
 
@@ -112,6 +114,21 @@ This helps:
 - Improve training efficiency
 - Remove noisy and corrupted tokens
 - Improve embedding quality
+
+---
+
+# Frequent Word Subsampling
+
+Very common words such as stopwords tend to dominate training while contributing little semantic information.
+
+To address this, frequent words are probabilistically discarded using the subsampling technique introduced in the original Word2Vec paper.
+
+Benefits include:
+
+- Faster training
+- Reduced dataset size
+- Improved representation of less frequent words
+- Better semantic quality of learned embeddings
 
 ---
 
@@ -168,27 +185,33 @@ This process is repeated across the entire corpus to generate training pairs.
 
 # Negative Sampling
 
-In addition to positive pairs, negative samples are generated.
+Instead of generating and storing negative examples beforehand, negative samples are generated dynamically during training.
 
-Random vocabulary words that do not appear in the context window are paired with the center word.
+Words are sampled from a unigram distribution raised to the power of 0.75, following the approach proposed in the original Word2Vec paper.
 
 ## Example
 
+Positive pair:
+
 ```text
-[दोस्त, कंप्यूटर]
-[दोस्त, पहाड़]
-[दोस्त, विज्ञान]
+[दोस्त, बाजार]
 ```
 
-These represent unlikely co-occurrences.
+Possible negative pairs:
 
----
+```text
+[दोस्त, कंप्यूटर]
+[दोस्त, विज्ञान]
+[दोस्त, पहाड़]
+```
+These represent unlikely co-occurrences and help the model distinguish meaningful semantic relationships from random word associations. Dynamic generation significantly reduces dataset size while allowing different negative samples to be seen across training epochs.
 
 # Why Negative Sampling?
 
 Negative sampling helps:
 - Learn meaningful semantic separation
 - Distinguish related vs unrelated words
+- Reduce memory requirements
 - Scale training efficiently to very large vocabularies
 - Avoid the computational cost of full softmax
 
@@ -228,48 +251,12 @@ The embeddings are beginning to capture:
 
 ---
 
-# Embedding Evaluation
-
-Current evaluation methods include:
-
-## 1. Cosine Similarity
-
-Used to retrieve semantically similar words.
-
-Example goals:
-
-```text
-राजा → रानी, सम्राट, शासक
-```
-
----
-
-## 2. Analogy Testing
-
-Evaluating vector arithmetic relationships such as:
-
-```text
-राजा - पुरुष + महिला ≈ रानी
-```
-
----
-
-## 3. Embedding Visualization
-
-Using:
-- PCA
-- t-SNE
-
-to visualize learned word clusters in 2D space.
-
----
-
 # Future Improvements
 
 Planned improvements include:
-
-- Subsampling extremely frequent words (In progress)
-- Improved negative sampling strategies
+- Multiple negative samples per positive pair
+- Intrinsic benchmark evaluation for Hindi embeddings
+- Improved analogy testing
 
 ---
 
