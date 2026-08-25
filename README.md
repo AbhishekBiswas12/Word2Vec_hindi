@@ -24,8 +24,8 @@ This project has evolved from a small experimental implementation into a large-s
 
 Current progress includes:
 - Training on a corpus containing over **82M Hindi tokens**
+- After subsampling corpus size: **~28M tokens**
 - Generating over **1.5 Billion skip-gram training pairs**
-- Training multiple embedding models with dimensions ranging from **300–400**
 - Evaluating embeddings using:
   - cosine similarity
   - nearest-neighbor retrieval
@@ -33,10 +33,10 @@ Current progress includes:
   - embedding visualization using PCA and t-SNE
 
 The current best-performing model:
-- Embedding Size: **350**
-- Training Loss: **~0.38**
-- Validation Loss: **~0.47**
-
+- Embedding Size: **300**
+- Training Loss: **~0.45**
+- Validation Loss: **~0.58**
+  
 The model is now producing meaningful semantic separation between positive and negative word pairs.
 
 ---
@@ -44,14 +44,14 @@ The model is now producing meaningful semantic separation between positive and n
 # Latest Updates
 
 - Combined 5 large Hindi datasets into a single training corpus
-- Final corpus size reached approximately **82M tokens**
+- Final corpus size reached approximately **28M tokens**
 - Vocabulary built from words occurring atleast **2 times**
 - Final vocabulary size exceeds **500K unique words**
-- Context window size increased from **3 → 5**
+- Context window size: **10**
 - Generated approximately:
   - **1.5 Billion training skip-gram pairs**
-  - **40M validation pairs**
-  - **40M testing pairs**
+  - **42M validation pairs**
+  - **28M testing pairs**
 - Implemented:
   - Skip-gram training
   - Dynamic negative sampling
@@ -227,7 +227,7 @@ Current training setup:
   - 300
   - 350
   - 400
-- Best-performing embedding size so far: **350**
+- Best-performing embedding size so far: **300**
 - Optimizer: Adagrad
 - Loss Function: BCEWithLogitsLoss
 - Training uses:
@@ -241,13 +241,12 @@ Current training setup:
 The model now learns strong separation between positive and negative pairs.
 
 Observed probability ranges:
-- Positive pairs: ~0.94
-- Negative pairs: ~0.07
+- Positive pairs: ~0.565 (training set)
+- Negative pairs: ~0.225 (training set)
+- Positive pairs: ~0.55 (testing set)
+- Negative pairs: ~0.25 (testing set)
 
-The embeddings are beginning to capture:
-- semantic similarity
-- contextual relationships
-- syntactic structure
+The embeddings are beginning to capture semantic similarity and syntactic relationship
 
 ---
 
