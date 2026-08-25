@@ -2,7 +2,7 @@
 
 Welcome to **Word2Vec_hindi**
 
-This project is my attempt at implementing the **Word2Vec model completely from scratch**, specifically for the **Hindi language**.
+This project is my attempt at implementing the **Word2Vec training pipeline from scratch using PyTorch**, specifically for the **Hindi language**.
 
 The primary goal of this project is learning by building — understanding how word embeddings work internally by implementing the entire pipeline myself instead of relying on high-level NLP libraries.
 
@@ -31,11 +31,7 @@ Current progress includes:
   - nearest-neighbor retrieval
   - analogy testing
   - embedding visualization using PCA and t-SNE
-
-The current best-performing model:
 - Embedding Size: **300**
-- Training Loss: **~0.45**
-- Validation Loss: **~0.58**
   
 The model is now producing meaningful semantic separation between positive and negative word pairs.
 
@@ -119,26 +115,14 @@ This helps:
 
 # Frequent Word Subsampling
 
-Very common words such as stopwords tend to dominate training while contributing little semantic information.
-
-To address this, frequent words are probabilistically discarded using the subsampling technique introduced in the original Word2Vec paper.
-
-Benefits include:
-
-- Faster training
-- Reduced dataset size
-- Improved representation of less frequent words
-- Better semantic quality of learned embeddings
+Very frequent words can dominate the training corpus and generate a large number of relatively uninformative training pairs. To address this, frequent words are probabilistically discarded using the subsampling technique introduced in the original Word2Vec paper. This reduces the number of training pairs and gives relatively infrequent words more influence during training.
 
 ---
 
 # Context Window
 
-- Previous context window size: **3**
-- Current context window size: **5**
-
-With a window size of 5:
-- each center word can generate up to 10 positive pairs
+With a window size of 10:
+- each center word can generate up to 20 positive pairs
 - broader semantic context can be captured
 - embeddings learn richer relationships
 
@@ -204,7 +188,7 @@ Possible negative pairs:
 [दोस्त, विज्ञान]
 [दोस्त, पहाड़]
 ```
-These represent unlikely co-occurrences and help the model distinguish meaningful semantic relationships from random word associations. Dynamic generation significantly reduces dataset size while allowing different negative samples to be seen across training epochs.
+These sampled pairs are treated as negative examples during training, encouraging the model to assign higher scores to observed center-target pairs than to randomly sampled pairs.
 
 # Why Negative Sampling?
 
@@ -223,11 +207,7 @@ Current training setup:
 
 - Architecture: Skip-gram Word2Vec
 - Framework: PyTorch
-- Embedding dimensions tested:
-  - 300
-  - 350
-  - 400
-- Best-performing embedding size so far: **300**
+- Embedding dimension: **300**
 - Optimizer: Adagrad
 - Loss Function: BCEWithLogitsLoss
 - Training uses:
@@ -238,15 +218,7 @@ Current training setup:
 
 # Current Results
 
-The model now learns strong separation between positive and negative pairs.
-
-Observed probability ranges:
-- Positive pairs: ~0.565 (training set)
-- Negative pairs: ~0.225 (training set)
-- Positive pairs: ~0.55 (testing set)
-- Negative pairs: ~0.25 (testing set)
-
-The embeddings are beginning to capture semantic similarity and syntactic relationship
+The trained model achieves higher average logits for observed skip-gram pairs than for sampled negative pairs. These scores are used as diagnostic training metrics rather than as standalone measures of embedding quality. The embeddings are beginning to capture semantic similarity and syntactic relationship
 
 ---
 
