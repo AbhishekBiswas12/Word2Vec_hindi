@@ -259,6 +259,16 @@ Planned improvements include:
 
 ---
 
+# Using the model
+
+The model has been deployed to huggingface. You can use it by cloning the huggingface repository as follows:
+
+```text
+git clone https://huggingface.co/AbhishekBiswas12/word2vec-hindi
+```
+
+---
+
 # Contributions
 
 This is primarily a learning and research-oriented project, but suggestions, ideas, and feedback are always welcome.
