@@ -254,6 +254,7 @@ This is primarily a learning and research-oriented project, but suggestions, ide
 - https://jalammar.github.io/illustrated-word2vec/
 - https://medium.com/@manansuri/a-dummys-guide-to-word2vec-456444f3c673
 - https://jaketae.github.io/study/word2vec/
+- Bhatia, K., Aggarwal, D. and Vaidya, A., 2021, April. Fine-tuning distributional semantic models for closely-related languages. In Proceedings of the Eighth Workshop on NLP for Similar Languages, Varieties and Dialects (pp. 60–66).
 
 ---
 
