@@ -218,7 +218,9 @@ Current training setup:
 
 # Current Results
 
-The trained model achieves higher average logits for observed skip-gram pairs than for sampled negative pairs. These scores are used as diagnostic training metrics rather than as standalone measures of embedding quality. The embeddings are beginning to capture semantic similarity and syntactic relationship
+The embeddings are evaluated using Hin-RG63 dataset.
+
+- Spearman Rank Correlation: 0.4463
 
 ---
 
